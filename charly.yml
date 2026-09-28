@@ -1,7 +1,5 @@
-version: 2026.232.0520
 kimi:
     candy:
-        version: 2026.243.0100
         description: |
             Installs the Moonshot Kimi Code CLI globally via npm so `kimi` is on PATH for AI coding assistance.
             The candy depends on nodejs and ships a package.json pinning
