@@ -1,6 +1,58 @@
-# layer-kimi
+# kimi
 
-The `layer-kimi` candy of the [opencharly/charly](https://github.com/opencharly/charly)
-candy library, as a standalone repo (the candy de-submodule cutover, kind-prefixed
-naming). The candy manifest lives at the repo root; the charly resolver fetches
-this repo at the pinned tag.
+Moonshot Kimi Code CLI layer for OpenCharly images.
+
+The `kimi` candy installs the `@moonshot-ai/kimi-code` npm package globally (via
+`package.json`, requiring `nodejs`), landing the `kimi` CLI on the npm global
+bin path at `~/.npm-global/bin/kimi`. Kimi Code is Moonshot's AI coding agent
+that runs inside the container.
+
+`kimi --version` reports a semantic version offline, so the install and bin
+wiring are verifiable without network access.
+
+## What it provides
+
+| Property | Value |
+|---|---|
+| Layer / candy | `kimi` |
+| Requires | `layer-nodejs` |
+| Binary | `${HOME}/.npm-global/bin/kimi` |
+| npm package | `@moonshot-ai/kimi-code` |
+| Install files | `charly.yml`, `package.json` |
+| Service / port | none |
+
+## How to use it
+
+Compose the layer by pinning this repo in a box's `candy:` list:
+
+```yaml
+my-box:
+  candy:
+    base: fedora
+    candy:
+      - '@github.com/opencharly/layer-kimi:v2026.243.0409'
+```
+
+After the image is built:
+
+```bash
+~/.npm-global/bin/kimi --version
+~/.npm-global/bin/kimi --help
+```
+
+## Layout
+
+- `charly.yml` — the `kimi:` candy entity: the `nodejs` require, the `check:`
+  assertions, and the embedded `skill:` entity.
+- `package.json` — pins the `@moonshot-ai/kimi-code` npm package.
+- `CHANGELOG/` — per-CalVer release notes.
+- `.github/workflows/tag-on-merge.yml` — CalVer tag + `CHANGELOG/` on merge.
+- `README.md` — this user overview.
+
+## Related
+
+- Owning skill: `/charly-coder:kimi` — the Moonshot Kimi Code CLI
+- Runtime parent: `/charly-coder:nodejs`
+- Sibling AI CLIs: `/charly-coder:claude-code`, `/charly-coder:codex`, `/charly-coder:gemini`, `/charly-coder:forgecode`
+- [`opencharly/charly`](https://github.com/opencharly/charly) — the charly CLI and image builder
+- [`opencharly/opencharly`](https://github.com/opencharly/opencharly) — the umbrella
